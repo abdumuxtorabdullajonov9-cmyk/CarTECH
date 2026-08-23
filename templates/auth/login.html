@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tizimga kirish - CarTECH</title>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #1f2937;
+        }
+        .login-card {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+        .login-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-align: center;
+            color: #111827;
+        }
+        .login-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .error-box {
+            background-color: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #374151;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            font-size: 15px;
+            box-sizing: border-box;
+            background-color: #f9fafb;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        .login-btn {
+            width: 100%;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 10px;
+        }
+        .login-btn:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <h2 class="login-title">CarTECH</h2>
+    <p class="login-subtitle">Tizimga kirish uchun ma'lumotlarni kiriting</p>
+
+    <!-- Xatolik yuz bersa ko'rsatish -->
+    {% if form.errors %}
+        <div class="error-box">
+            Login yoki parol noto'g'ri kiritildi!
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="id_username">Foydalanuvchi nomi </label>
+            <input type="text" name="username" id="id_username" required autofocus placeholder="username kiriting">
+        </div>
+
+        <div class="form-group">
+            <label for="id_password">Parol:</label>
+            <input type="password" name="password" id="id_password" required placeholder="••••••••">
+        </div>
+
+        <button type="submit" class="login-btn">Kirish</button>
+    </form>
+    <div style="text-align: center; font-size: 14px; color: #6b7280; margin-top: 20px;">
+        Akkauntingiz yo'qmi?
+        <a href="{% url 'register' %}" style="color: #2563eb; text-decoration: none; font-weight: 600;">
+            Ro'yxatdan o'tish
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

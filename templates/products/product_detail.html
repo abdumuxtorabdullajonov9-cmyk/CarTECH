@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.nomi }} - CarTECH</title>
+    <link href="https://jsdelivr.net" rel="stylesheet">
+</head>
+<body class="bg-light py-5">
+
+    <div class="container">
+        <a href="{% url 'product_list' %}" class="btn btn-outline-secondary mb-4 px-4 rounded-pill shadow-sm text-decoration-none">
+            ⬅ Orqaga qaytish
+        </a>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+
+                <div class="card border-0 shadow-sm rounded-4 bg-white p-4">
+                    <div class="row g-4 align-items-start">
+
+                        <div class="col-md-5 text-center">
+                            <div class="bg-light rounded-3 p-3 border d-flex align-items-center justify-content-center overflow-hidden" style="height: 350px; max-height: 350px;">
+                                {% if product.rasm %}
+                                    <img src="{{ product.rasm.url }}" class="img-fluid rounded-2" alt="{{ product.nomi }}" style="max-height: 100%; object-fit: contain;">
+                                {% elif product.rasmlari.exists %}
+                                    <img src="{{ product.rasmlari.first.rasm.url }}" class="img-fluid rounded-2" alt="{{ product.nomi }}" style="max-height: 100%; object-fit: contain;">
+                                {% else %}
+                                    <div class="text-muted fs-4">📦 Rasm yo'q</div>
+                                {% endif %}
+                            </div>
+
+                            {% if product.rasmlari.count > 1 %}
+                                <div class="d-flex gap-2 mt-3 justify-content-center overflow-auto py-1">
+                                    {% for rasm_obj in product.rasmlari.all %}
+                                        <img src="{{ rasm_obj.rasm.url }}" class="img-thumbnail rounded-2" style="width: 65px; height: 65px; object-fit: cover; cursor: pointer;">
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-7 d-flex flex-column justify-content-between" style="min-height: 350px;">
+                            <div>
+                                <h1 class="fw-bold text-dark h3 mb-2">{{ product.nomi }}</h1>
+
+                                <div class="mb-3 d-flex flex-wrap gap-2 align-items-center">
+                                    <span class="text-muted small">Kategoriya: <strong class="text-dark">{{ product.kategoriya.nomi }}</strong></span>
+                                    <span class="text-muted d-none d-md-inline">|</span>
+                                    <span class="text-muted small">OEM: <span class="badge bg-secondary text-white">{{ product.artikul_raqami }}</span></span>
+                                </div>
+
+                                <h3 class="text-danger fw-bold my-2 h2">
+                                    {{ product.narxi }} so'm
+                                </h3>
+
+                                <p class="fs-6 mb-3">
+                                    <small class="text-muted fw-bold">Omborda:</small>
+                                    {% if product.ombordagi_soni > 0 %}
+                                        <span class="text-success fw-bold">● {{ product.ombordagi_soni }} dona bor</span>
+                                    {% else %}
+                                        <span class="text-danger fw-bold">○ Hozircha tugagan</span>
+                                    {% endif %}
+                                </p>
+
+                                <div class="border-top pt-3 mb-3">
+                                    <h6 class="fw-bold text-dark text-uppercase tracking-wider mb-2" style="font-size: 0.75rem;">🚗 Mos keladigan mashinalar:</h6>
+                                    <div class="d-flex flex-wrap gap-1">
+                                        <div class="border-top pt-3 mb-3">
+                                        <h6 class="fw-bold text-dark text-uppercase tracking-wider mb-2" style="font-size: 0.75rem;">🚗 Mos keladigan mashinalar:</h6>
+                                        <div class="d-flex flex-wrap gap-1">
+                                            {% for mashina in product.mos_mashinalar.all %}
+                                                <span class="badge bg-light text-dark border p-2 fw-normal" style="font-size: 0.8rem;">{{ mashina }}</span>
+                                            {% empty %}
+                                                <span class="text-muted small">Mos keladigan mashinalar kiritilmagan</span>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+
+                                        {% for mashina in product.mos_mashinalar.all %}
+                                            <span class="badge bg-light text-dark border p-2 fw-normal" style="font-size: 0.8rem;">{{ mashina }}</span>
+                                        {% empty %}
+                                            <span class="text-muted small">Mos keladigan mashinalar kiritilmagan</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="border-top pt-3 mb-4">
+                                    <h6 class="fw-bold text-dark text-uppercase tracking-wider mb-2" style="font-size: 0.75rem;">Batafsil tavsif:</h6>
+                                    <p class="text-secondary lh-base mb-0 small">{{ product.tavsifi|linebreaks }}</p>
+                                </div>
+                            </div>
+
+                            <div class="pt-2">
+                                {% if product.ombordagi_soni > 0 %}
+                                    <a href="{% url 'cart_add' product.id %}" class="btn btn-success btn-lg w-100 py-3 fw-bold rounded-3 shadow-sm text-decoration-none d-flex align-items-center justify-content-center gap-2">
+                                        <span>🛒</span> Savatchaga qo'shish
+                                    </a>
+                                {% else %}
+                                    <button class="btn btn-secondary btn-lg w-100 py-3 fw-bold rounded-3" disabled>
+                                        Xarid qilib bo'lmaydi (Tugagan)
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="https://jsdelivr.net"></script>
+</body>
+</html>

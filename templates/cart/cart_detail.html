@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savatcha - CarTECH</title>
+    <style>
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            color: #1f2937;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+<div class="header-area">
+        .back-link { text-decoration: none; color: #4b5563; font-size: 14px; font-weight: 500; }
+        .back-link:hover { color: #1f2937; }
+        .page-title { font-size: 28px; font-weight: 700; margin: 10px 0 25px 0; }
+
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .clear-cart-btn {
+            background-color: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fca5a5;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .clear-cart-btn:hover { background-color: #fecaca; }
+
+        .main-content {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+        .cart-items-list { flex: 2; min-width: 300px; }
+        .order-summary-sidebar { flex: 1; min-width: 300px; }
+
+        .cart-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            border: 1px solid #e5e7eb;
+        }
+        .product-info-block { display: flex; align-items: center; gap: 15px; }
+        .product-img { width: 85px; height: 85px; object-fit: cover; border-radius: 12px; border: 1px solid #e5e7eb; }
+        .no-img { width: 85px; height: 85px; background: #f3f4f6; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; border: 1px solid #e5e7eb; }
+        .product-name { font-size: 18px; font-weight: 700; margin: 0 0 5px 0; color: #111827; }
+        .product-meta { font-size: 13px; color: #6b7280; margin: 0 0 5px 0; }
+        .product-badge { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; border: 1px solid #e5e7eb; color: #374151; }
+        .product-price { color: #2563eb; font-weight: 600; font-size: 15px; margin: 0; }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            border-radius: 30px;
+            padding: 4px;
+        }
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            color: #1f2937;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .qty-btn:hover { background: #e5e7eb; }
+        .qty-number { font-size: 16px; font-weight: 700; padding: 0 15px; color: #111827; }
+
+        .price-and-delete { display: flex; align-items: center; gap: 20px; }
+        .total-item-price { font-size: 18px; font-weight: 700; color: #111827; }
+        .delete-item-btn { color: #ef4444; text-decoration: none; font-size: 20px; font-weight: bold; padding: 5px 10px; }
+        .delete-item-btn:hover { color: #b91c1c; }
+
+        .summary-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid #e5e7eb;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 20px;
+        }
+        .summary-title { font-size: 20px; font-weight: 700; margin-top: 0; margin-bottom: 20px; color: #111827; }
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 15px; color: #4b5563; }
+        .summary-value { font-weight: 600; color: #111827; }
+        .summary-divider { border: 0; border-top: 1px solid #e5e7eb; margin: 15px 0; }
+        .total-sum-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .total-sum-label { font-size: 16px; font-weight: 700; color: #111827; }
+        .total-sum-value { font-size: 24px; font-weight: 800; color: #10b981; }
+
+        .checkout-btn {
+            width: 100%;
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(16, 185, 129, 0.2);
+            transition: background 0.2s;
+        }
+        .checkout-btn:hover { background: #059669; }
+
+        .empty-cart-card {
+            background: white;
+            padding: 50px;
+            text-align: center;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+        }
+        .empty-btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        .empty-btn:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+        <div class="header-area">
+            <div>
+                <a href="{% url 'product_list' %}" class="back-link">← Xaridni davom ettirish</a>
+                <h2 class="page-title">Sizning savatchangiz</h2>
+
+                {% if user.is_authenticated %}
+                    <div style="font-size: 14px; color: #4b5563; margin-top: 5px; display: flex; align-items: center; gap: 15px;">
+                        <span>Foydalanuvchi: <strong>{{ user.username }}</strong></span>
+                        <form action="{% url 'logout' %}" method="post" style="margin: 0; display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" style="background: none; border: none; color: #ef4444; cursor: pointer; text-decoration: underline; padding: 0; font-weight: 600;">Saytdan chiqish (Logout)</button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if cart %}
+                <a href="{% url 'cart_clear' %}" class="clear-cart-btn">Savatni bo'shatish</a>
+            {% endif %}
+        </div>
+
+
+    <div class="main-content">
+        <div class="cart-items-list">
+            {% for id, item in cart.items %}
+                <div class="cart-card">
+
+                    <div class="product-info-block">
+                        <!-- Rasm qismi -->
+                        {% if item.rasm_url %}
+                            <img src="{{ item.rasm_url }}" alt="{{ item.nomi }}" class="product-img">
+                        {% else %}
+                            <div class="no-img">📦</div>
+                        {% endif %}
+
+                        <!-- Ma'lumotlar -->
+                        <div>
+                            <h5 class="product-name">{{ item.nomi }}</h5>
+                            <p class="product-meta">OEM / Artikul: <span class="product-badge">{{ item.artikul }}</span></p>
+                            <p class="product-price">{{ item.narxi }} so'm / dona</p>
+                        </div>
+                    </div>
+
+                    <!-- TUZATILDI: QO'SHISH VA AYRISH TUGMALARI -->
+                    <div class="quantity-control">
+                        <a href="{% url 'cart_decrement' id %}" class="qty-btn" title="Kamaytirish">—</a>
+                        <span class="qty-number">{{ item.quantity }}</span>
+                        <a href="{% url 'cart_add' id %}" class="qty-btn" title="Ko'paytirish">+</a>
+                    </div>
+
+                    <!-- Umumiy Narxi va O'chirish -->
+                    <div class="price-and-delete">
+                        <span class="total-item-price">{{ item.jami_narxi }} so'm</span>
+                        <a href="{% url 'cart_remove' id %}" class="delete-item-btn" title="Savatdan o'chirish">×</a>
+                    </div>
+
+                </div>
+            {% empty %}
+                <div class="empty-cart-card">
+                    <h3 style="margin:0 0 10px 0;">Sizning savatchangiz bo'sh</h3>
+                    <p style="color:#6b7280; margin:0;">Savatchangizga hali hech qanday ehtiyot qism qo'shmadingiz.</p>
+                    <a href="{% url 'product_list' %}" class="empty-btn">Xarid qilishni boshlash</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- BUYURTMA HISOBI -->
+        <div class="order-summary-sidebar">
+            <div class="summary-card">
+                <h4 class="summary-title">Buyurtma tafsiloti</h4>
+
+                <div class="summary-row">
+                    <span>Mahsulot turlari:</span>
+                    <span class="summary-value">{{ cart|length }} xil</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Yetkazib berish:</span>
+                    <span class="summary-value" style="color: #10b981;">Bepul</span>
+                </div>
+
+                <hr class="summary-divider">
+
+                <div class="total-sum-row">
+                    <span class="total-sum-label">Jami summa:</span>
+                    <span class="total-sum-value">{{ total_price }} so'm</span>
+                </div>
+
+                <button class="checkout-btn">
+                    Rasmiylashtirishga o'tish →
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
