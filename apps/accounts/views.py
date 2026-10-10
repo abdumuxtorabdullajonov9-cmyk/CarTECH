@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django import forms
+from django.contrib.auth.password_validation import validate_password
 from .models import CustomUser
 
 class RegisterForm(forms.ModelForm):
@@ -15,7 +16,9 @@ class RegisterForm(forms.ModelForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password"])
+        password = self.cleaned_data["password"]
+        validate_password(password, user)
+        user.set_password(password)
         if commit:
             user.save()
         return user
