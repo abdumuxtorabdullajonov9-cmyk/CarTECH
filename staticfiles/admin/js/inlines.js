@@ -18,12 +18,16 @@
 'use strict';
 {
     const $ = django.jQuery;
+
+    const escapeRegExp = (str) => str.replace(/[|\\{}()[\]^$+*?.-]/g, '\\$&');
+
     $.fn.formset = function(opts) {
         const options = $.extend({}, $.fn.formset.defaults, opts);
         const $this = $(this);
         const $parent = $this.parent();
         const updateElementIndex = function(el, prefix, ndx) {
-            const id_regex = new RegExp("(" + prefix + "-(\\d+|__prefix__))");
+            const escapedPrefix = escapeRegExp(prefix);
+            const id_regex = new RegExp("(" + escapedPrefix + "-(\\d+|__prefix__))");
             const replacement = prefix + "-" + ndx;
             if ($(el).prop("for")) {
                 $(el).prop("for", $(el).prop("for").replace(id_regex, replacement));
@@ -327,33 +331,4 @@
             deleteText: options.deleteText,
             emptyCssClass: "empty-form",
             removed: updateInlineLabel,
-            added: function(row) {
-                initPrepopulatedFields(row);
-                reinitDateTimeShortCuts();
-                updateSelectFilter();
-                updateInlineLabel(row);
-            },
-            addButton: options.addButton
-        });
-
-        return $rows;
-    };
-
-    $(document).ready(function() {
-        $(".js-inline-admin-formset").each(function() {
-            const data = $(this).data(),
-                inlineOptions = data.inlineFormset;
-            let selector;
-            switch(data.inlineType) {
-            case "stacked":
-                selector = inlineOptions.name + "-group .inline-related";
-                $(selector).stackedFormset(selector, inlineOptions.options);
-                break;
-            case "tabular":
-                selector = inlineOptions.name + "-group .tabular.inline-related tbody:first > tr.form-row";
-                $(selector).tabularFormset(selector, inlineOptions.options);
-                break;
-            }
-        });
-    });
-}
+            added: function
